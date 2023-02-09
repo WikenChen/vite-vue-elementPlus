@@ -34,7 +34,7 @@
 </template>
 <script setup>
 import { logout }  from "@/api/login";
-import { defineProps, computed } from 'vue';
+import { computed } from 'vue';
 import { PROJECT_TOKEN, PROJECT_USER } from '@/utils/constant.js';
 import store from '@/store';
 import { useRoute, useRouter } from 'vue-router';

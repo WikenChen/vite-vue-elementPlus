@@ -1,9 +1,10 @@
 import { request, http } from './api.js';
-const baseUrl = `/manager/v1`;
+const BASEURL = 'gone-manage';
 
-export function getList() {
+export function getNoticeSettings(pageNum, pageSize, data) {
   return request({
-    url: `${baseUrl}/projects`,
-    method: 'get',
-  })
+      url: `${BASEURL}/v1/noticeSettings/pageNum=${pageNum}/pageSize=${pageSize}`,
+      method: 'get',
+      params: data,
+  });
 }
