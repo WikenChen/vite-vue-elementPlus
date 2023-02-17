@@ -4,6 +4,11 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "dashboard",
+}
+</script>
 <script setup>
 import { getNoticeSettings } from '@/api/index';
 import { showLoading } from '@/utils';

@@ -10,15 +10,16 @@
   <div ref="main" style="width: 100%; height: 500px"></div>
 </template>
 
+<script>
+export default {
+  name: "logQuery",
+}
+</script>
 <script setup>
+import * as echarts from 'echarts';
 import SearchForm from "@/components/searchForm.vue"
 import { getNowTime } from '@/utils';
 import { onMounted, ref, reactive } from 'vue';
-import * as echarts from 'echarts';
-
-onMounted(()=> {
-  init();
-})
 
 const main = ref();
 const isShowSearch = ref(false);
@@ -34,6 +35,10 @@ const optionsList = reactive([
   { field: 'levels', key: '日志等级', name: 'select', multiple: true, options: [{name: 'ERROR', value: 'ERROR'},{name: 'SUCCESS', value: 'SUCCESS'}] },
   { field: 'keywords', key: '关键字', name: 'input', rules: { required: true, message: '请填写关键字', trigger: 'blur' } },
 ]);
+
+onMounted(()=> {
+  init();
+})
 
 //搜索/重置
 const searchList = (data, type) => {

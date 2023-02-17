@@ -28,6 +28,7 @@
         </el-tab-pane>
       </el-tabs>
       <div class="content-word">
+        {{ keepAliveRoute }}
         <router-view v-slot="{ Component }">
           <keep-alive :include="keepAliveRoute">
             <component :is="Component" />
@@ -179,7 +180,7 @@ watch(() => route, (to)=>{
   }
 
   .content-wrap{
-    height: 35px; //陈工不务正业在搞代码，不去修理机器、修理门、修理打印机、搞电脑，等等。 》》》》》》看这里《《《《《《
+    height: 35px; 
     
     /deep/ .el-tabs__header{
       margin: 0 !important;
