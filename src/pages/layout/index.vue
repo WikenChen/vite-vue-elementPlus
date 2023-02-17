@@ -179,6 +179,7 @@ watch(() => route, (to)=>{
   }
 
   .content-wrap{
+    height: 35px; //陈工不务正业在搞代码，不去修理机器、修理门、修理打印机、搞电脑，等等。 》》》》》》看这里《《《《《《
     
     /deep/ .el-tabs__header{
       margin: 0 !important;
@@ -191,7 +192,9 @@ watch(() => route, (to)=>{
 
   .content-word{
     background: #fff;
-    height: calc(100vh - 100px);
+    box-sizing: border-box;
+    padding: 10px 20px;
+    height: calc(100vh - 95px);
   }
 }
 </style>

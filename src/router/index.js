@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { PROJECT_TOKEN, PROJECT_USER } from '@/utils/constant.js';
 import Layout from '@/pages/layout/index.vue';
+import { ElMessage } from 'element-plus'
 import { getInfo }  from "@/api/login";
 import store from '@/store';
 import { generatorRouter }  from "./permission.js";
@@ -54,7 +55,7 @@ router.beforeEach(async(to, from, next) => {
         let res = await getInfo({username});
         if(res.data?.success){
           if(res.data.data.permissionList.length < 1){
-            Message.error('用户未授权，请重新登录');
+            ElMessage.error('用户未授权，请重新登录');
             localStorage.removeItem(PROJECT_TOKEN);
             next({ name: 'login' });
           }else{

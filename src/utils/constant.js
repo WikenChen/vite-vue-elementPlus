@@ -1,2 +1,2 @@
-export const PROJECT_TOKEN = 'project_token';
-export const PROJECT_USER = 'project_user';
+export const PROJECT_TOKEN = 'dss_token';
+export const PROJECT_USER = 'dss_user';

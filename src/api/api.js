@@ -19,7 +19,7 @@ request.interceptors.request.use(
     // 请求头携带token发送
     const token = `Bearer ${localStorage.getItem(PROJECT_TOKEN)}`;
     localStorage.getItem(PROJECT_TOKEN) && (config.headers.Authorization = token);
-    config.headers['auth-project-name'] = 'gone';
+    config.headers['auth-project-name'] = 'dss';
     return config;
   }, error => {
     return Promise.reject(error);
