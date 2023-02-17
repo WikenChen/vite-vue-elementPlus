@@ -28,7 +28,6 @@
         </el-tab-pane>
       </el-tabs>
       <div class="content-word">
-        {{ keepAliveRoute }}
         <router-view v-slot="{ Component }">
           <keep-alive :include="keepAliveRoute">
             <component :is="Component" />
