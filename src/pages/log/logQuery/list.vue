@@ -1,49 +1,17 @@
 <template>
-  <Search :isShowSearch="isShowSearch" @trigger="handleTrigger">
-    <template #searchGroup>
-      <el-form :inline="true" :rules="searchRules" :model="searchForm">
-        
-        <el-form-item label="开始时间：" prop="startDate">
-          <el-date-picker
-            v-model="searchForm.startDate"
-            type="datetime"
-            placeholder="选择开始时间"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item label="结束时间：" prop="endDate">
-          <el-date-picker
-            v-model="searchForm.endDate"
-            type="datetime"
-            placeholder="选择结束时间"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item label="日志等级：" prop="levels">
-          <el-select v-model="searchForm.levels" placeholder="请选择日志等级" multiple collapse-tags clearable>
-            <el-option label="ERROR" value="ERROR" ></el-option>
-            <el-option label="WARN" value="WARN" ></el-option>
-            <el-option label="INFO" value="INFO" ></el-option>
-            <el-option label="DEBUG" value="DEBUG" ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="关键字：" prop="keywords">
-          <el-input
-            v-model="searchForm.keywords"
-            placeholder="关键字"
-            clearable
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary">查询</el-button>
-        </el-form-item>
-      </el-form>
-    </template>
-  </Search>
+  <SearchForm 
+    :isShowSearch="isShowSearch" 
+    :searchForm="searchForm"
+    :optionsList="optionsList"
+    @trigger="handleTrigger"
+    @handleSearch="searchList"
+    />
 
   <div ref="main" style="width: 100%; height: 500px"></div>
 </template>
 
 <script setup>
-import Search from "@/components/search.vue"
+import SearchForm from "@/components/searchForm.vue"
 import { getNowTime } from '@/utils';
 import { onMounted, ref, reactive } from 'vue';
 import * as echarts from 'echarts';
@@ -60,9 +28,17 @@ const searchForm = reactive({
   levels: "",
   keywords: ""
 });
-const searchRules = reactive({
-  keywords: [ { required: true, message: '请填写日志条数', trigger: 'blur' } ],
-});
+const optionsList = reactive([
+  { field: 'startDate', key: '开始时间', name: 'date-picker' },
+  { field: 'endDate', key: '结束时间', name: 'date-picker', type: 'datetime' },
+  { field: 'levels', key: '日志等级', name: 'select', multiple: true, options: [{name: 'ERROR', value: 'ERROR'},{name: 'SUCCESS', value: 'SUCCESS'}] },
+  { field: 'keywords', key: '关键字', name: 'input', rules: { required: true, message: '请填写关键字', trigger: 'blur' } },
+]);
+
+//搜索/重置
+const searchList = (data, type) => {
+  console.log(data, type)
+};
 
 // 显示/隐藏 搜索项
 const handleTrigger = () => {

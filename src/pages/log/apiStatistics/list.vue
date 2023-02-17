@@ -5,7 +5,6 @@
     :optionsList="optionsList"
     @trigger="handleTrigger"
     @handleSearch="searchList"
-    @handleReset="resetList"
     />
 
   <div ref="main" style="width: 100%; height: 500px"></div>
@@ -20,7 +19,6 @@ import { ref, reactive } from 'vue';
 const main = ref();
 const isShowSearch = ref(false);
 const searchForm = reactive({
-  endDate: "",
   levels: "",
   keywords: "",
   date: getNowTime(true)
@@ -28,18 +26,15 @@ const searchForm = reactive({
 const optionsList = reactive([
   { field: 'keywords', key: '关键字', name: 'input', rules:  {
         required: true,
-        message: 'domain can not be null',
+        message: 'keywords can not be null',
         trigger: 'blur',
   }},
-  { field: 'levels', key: '下拉', name: 'select', options: [{ name: '是', value: 1 }, { name: '否', value: 0 }] },
+  { field: 'levels', key: '下拉', name: 'select', options: [{ key: '是', id: 1 }, { key: '否', id: 0 }], keySlot: 'key', valueSlot: 'id' },
   { field: 'date', key: '时间', name: 'date-picker', type: 'datetime'  },
 ]);
 
-const searchList = (data) => {
-  console.log(data, "search")
-};
-const resetList = (data) => {
-  console.log(data, "reset")
+const searchList = (data, type) => {
+  console.log(data, type);
 };
 
 // 显示/隐藏 搜索项

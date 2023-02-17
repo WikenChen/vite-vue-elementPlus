@@ -12,10 +12,12 @@
             class="w-200"
             :is="'el-'+item.name"
             v-model="searchForm[item.field]"
-            :placeholder="item.placeholder"
+            :placeholder="item.key"
             :disabled="item.disabled"
             :type="item.type"
             :multiple="item.multiple || false"
+            :collapse-tags="item.multiple"
+            :collapse-tags-tooltip="item.multiple"
             :filterable="item.filterable || true"
             :format="item.format ? item.format : 'YYYY-MM-DD HH:mm:ss'" 
             :clearable="item.clearable || true"
@@ -53,33 +55,38 @@ const props = defineProps({
 const formRef = ref();
 
 const handleTrigger = () => {
-  emits('trigger');
+  const { isShowSearch } = props;
+  emits('trigger', !isShowSearch);
 };
 
 const searchList = (formEl) => {
   formEl.validate((valid) => {
     if (valid) {
-      const { searchForm, optionsList } = props;
-      let obj = JSON.parse(JSON.stringify(searchForm));
-
-      optionsList.forEach(item=>{
-        if(item.name === 'date-picker' && obj[item.field]){
-          obj[item.field] = formatDate(obj[item.field])
-        }
-        if(typeof obj[item.field] === "string"){
-          obj[item.field] = obj[item.field].trim();
-        }
-      })
-
-      emits('handleSearch', obj);
+      emitSearch('search');
     }
   })
 };
 
 const resetList = (formEl) => {
-  const { searchForm } = props;
   formEl.resetFields();
-  emits('handleReset', searchForm);
+  emitSearch('reset');
+};
+
+// 搜索、重置統一走emitSearch
+const emitSearch = (type) =>{
+  const { searchForm, optionsList } = props;
+  let obj = JSON.parse(JSON.stringify(searchForm));
+
+  optionsList.forEach(item=>{
+    if(item.name === 'date-picker' && obj[item.field]){
+      obj[item.field] = formatDate(obj[item.field])
+    }
+    if(typeof obj[item.field] === "string"){
+      obj[item.field] = obj[item.field].trim();
+    }
+  });
+
+  emits('handleSearch', obj, type);
 };
 </script>
 
